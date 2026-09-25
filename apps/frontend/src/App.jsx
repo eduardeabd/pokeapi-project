@@ -37,41 +37,46 @@ function App() {
   }
 
   return (
-    <div>
-      <h1>Buscador de Pokémon</h1>
-      <input
-        type="text"
-        placeholder="Escribe el nombre de un Pokémon"
-        value={nombre}
-        onChange={(e) => setNombre(e.target.value)}
-        onKeyDown={manejarTecla}
-      />
-      <button onClick={buscarPokemon} disabled={cargando}>
-        {cargando ? 'Buscando...' : 'Buscar'}
-      </button>
+    <div className="contenedor">
+      <div className="tarjeta">
+        <h1 className="titulo">Buscador de Pokémon</h1>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-
-      {pokemon && (
-        <div>
-          <h2>{pokemon.name}</h2>
-          <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-
-          <p><strong>Altura:</strong> {pokemon.height / 10} m</p>
-          <p><strong>Peso:</strong> {pokemon.weight / 10} kg</p>
-
-          <p><strong>Tipo(s):</strong>{' '}
-            {pokemon.types.map((t) => t.type.name).join(', ')}
-          </p>
-
-          <h3>Habilidades:</h3>
-          <ul>
-            {pokemon.abilities.map((a) => (
-              <li key={a.ability.name}>{a.ability.name}</li>
-            ))}
-          </ul>
+        <div className="barra-busqueda">
+          <input
+            type="text"
+            className="input"
+            placeholder="Escribe el nombre de un Pokémon"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            onKeyDown={manejarTecla}
+          />
+          <button className="boton" onClick={buscarPokemon} disabled={cargando}>
+            {cargando ? 'Buscando...' : 'Buscar'}
+          </button>
         </div>
-      )}
+
+        {error && <p className="error">{error}</p>}
+
+        {pokemon && (
+          <div className="resultado">
+            <h2 className="nombre-pokemon">{pokemon.name}</h2>
+            <img className="sprite" src={pokemon.sprites.front_default} alt={pokemon.name} />
+
+            <div className="datos">
+              <p><strong>Altura:</strong> {pokemon.height / 10} m</p>
+              <p><strong>Peso:</strong> {pokemon.weight / 10} kg</p>
+              <p><strong>Tipo(s):</strong> {pokemon.types.map((t) => t.type.name).join(', ')}</p>
+            </div>
+
+            <h3>Habilidades:</h3>
+            <ul className="habilidades">
+              {pokemon.abilities.map((a) => (
+                <li key={a.ability.name}>{a.ability.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
